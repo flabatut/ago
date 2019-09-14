@@ -1,5 +1,5 @@
 FROM  alpine:latest
 RUN   apk update \
       && apk --no-cache add ansible \
-      && pip install pip --upgrade \
-      && pip install openshift
+      && pip3 install pip --upgrade \
+      && pip3 install openshift
