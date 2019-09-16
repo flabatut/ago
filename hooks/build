@@ -15,9 +15,9 @@ function build_latest() {
         --build-arg VCS_REF=${VCS_REF} \
         --build-arg DOCKER_REPO=${DOCKER_REPO} \
         --build-arg DOCKER_TAG=${VCS_REF} \
-        -t $DOCKER_REPO:${VCS_REF} .
+        -t ${DOCKER_REPO}:${VCS_REF} .
     echo "Create Tag latest for ${VCS_REF}"
-    docker tag $DOCKER_REPO:${VCS_REF} $DOCKER_REPO:latest
+    docker tag ${DOCKER_REPO}:${VCS_REF} $DOCKER_REPO:latest
 }
 
 
@@ -30,7 +30,7 @@ function build_debug() {
         --build-arg DOCKER_REPO=${DOCKER_REPO} \
         --build-arg DOCKER_TAG=debug \
         -f debug.Dockerfile \
-        -t $DOCKER_REPO:debug .
+        -t ${DOCKER_REPO}:debug .
 }
 
 
