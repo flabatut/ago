@@ -1,3 +1,0 @@
----
-- name: commit amend
-  command: git commit --amend
