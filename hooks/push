@@ -1,7 +1,13 @@
 #!/bin/bash
 
 
-echo "Push latest"
-docker push $IMAGE_NAME
-echo "Push debug"
-docker push $DOCKER_REPO:debug
+echo "Docker Push hook running"
+if [ "${DOCKER_TAG}" == "latest" ] ; then
+    echo "Push latest"
+    docker push $IMAGE_NAME
+    echo "Push debug"
+    docker push $DOCKER_REPO:debug
+else
+    echo "Push release"
+    docker push $IMAGE_NAME
+fi

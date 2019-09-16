@@ -1,24 +1,55 @@
 #!/bin/bash
 
-
+# Build 2 tags:
+# - latest
+# - debug
+# since debug depends on latest, so far, use docker hook to respect dependency.
 BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
 VCS_REF=`git rev-parse --short HEAD`
 
-echo "Build hook running"
-echo "Build ${VCS_REF} tag"
-docker build --build-arg BUILD_DATE=${BUILD_DATE} \
-             --build-arg VCS_REF=${VCS_REF} \
-             --build-arg DOCKER_REPO=${DOCKER_REPO} \
-             --build-arg DOCKER_TAG=${VCS_REF} \
-             -t $DOCKER_REPO:${VCS_REF} .
+function build_latest() {
+    echo "Build ${VCS_REF} tag"
+    docker \
+        build \
+        --build-arg BUILD_DATE=${BUILD_DATE} \
+        --build-arg VCS_REF=${VCS_REF} \
+        --build-arg DOCKER_REPO=${DOCKER_REPO} \
+        --build-arg DOCKER_TAG=${VCS_REF} \
+        -t $DOCKER_REPO:${VCS_REF} .
+    echo "Create Tag latest for ${VCS_REF}"
+    docker tag $DOCKER_REPO:${VCS_REF} $DOCKER_REPO:latest
+}
 
-echo "Tag latest"
-docker tag $DOCKER_REPO:${VCS_REF} $DOCKER_REPO:latest
 
-echo "Build debug tag"
-docker build --build-arg BUILD_DATE=${BUILD_DATE} \
-             --build-arg VCS_REF=${VCS_REF} \
-             --build-arg DOCKER_REPO=${DOCKER_REPO} \
-             --build-arg DOCKER_TAG=debug \
-             -f debug.Dockerfile \
-             -t $DOCKER_REPO:debug .
+function build_debug() {
+    echo "Build debug tag"
+    docker \
+        build \
+        --build-arg BUILD_DATE=${BUILD_DATE} \
+        --build-arg VCS_REF=${VCS_REF} \
+        --build-arg DOCKER_REPO=${DOCKER_REPO} \
+        --build-arg DOCKER_TAG=debug \
+        -f debug.Dockerfile \
+        -t $DOCKER_REPO:debug .
+}
+
+
+function build_tag() {
+    echo "Build release"
+    docker \
+        build \
+        --build-arg BUILD_DATE=${BUILD_DATE} \
+        --build-arg VCS_REF=${VCS_REF} \
+        --build-arg DOCKER_REPO=${DOCKER_REPO} \
+        --build-arg DOCKER_TAG=${DOCKER_TAG} \
+        -t ${IMAGE_NAME} .
+}
+
+
+echo "Docker Build hook running"
+if [ "${DOCKER_TAG}" == "latest" ] ; then
+    build_latest
+    build_debug
+else
+    build_tag
+fi

@@ -4,6 +4,7 @@
 # We'll use the current one (.githooks)
 hookDir="$(dirname $0)/../"
 
+
 function hadolint() {
 	dockerfile=$1
 	echo "Executing hadolint against ${dockerfile} ..."
@@ -14,6 +15,7 @@ function hadolint() {
 	fi
 }
 
+
 function dockerfilelint() {
 	dockerfile=$1
 	echo "Executing dockerfile-lint against ${dockerfile} ..."
@@ -23,6 +25,7 @@ function dockerfilelint() {
 		exit 1
 	fi
 }
+
 
 echo "Starting pre-commit validation sequence..."
 for dockerfile in *Dockerfile; do
