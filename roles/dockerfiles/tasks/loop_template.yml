@@ -11,5 +11,5 @@
 - name: add to stage when changed
   command: "git add {{ item.dest }}"
   when: r is changed
-  notify:
-    - commit amend
+  # notify:
+  #   - commit amend
