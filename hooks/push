@@ -1,0 +1,7 @@
+#!/bin/bash
+
+
+echo "Push latest"
+docker push $IMAGE_NAME
+echo "Push debug"
+docker push $DOCKER_REPO:debug

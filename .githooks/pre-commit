@@ -14,3 +14,7 @@ for i in *Dockerfile; do
 	echo "Executing dockerfile-lint against $i ..."
 	docker run -it --rm --privileged -v $PWD:/root/ projectatomic/dockerfile-lint dockerfile_lint -f $i
 done
+
+if (($?)); then
+	echo "ERROR: something went wrong. Aborting commit"
+fi

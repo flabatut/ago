@@ -1,10 +1,24 @@
 #!/bin/bash
 
-# $IMAGE_NAME var is injected into the build so the tag is correct.
+
+BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+VCS_REF=`git rev-parse --short HEAD`
 
 echo "Build hook running"
-docker build --build-arg BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"` \
-             --build-arg VCS_REF=`git rev-parse --short HEAD` \
+echo "Build ${VCS_REF} tag"
+docker build --build-arg BUILD_DATE=${BUILD_DATE} \
+             --build-arg VCS_REF=${VCS_REF} \
              --build-arg DOCKER_REPO=${DOCKER_REPO} \
-             --build-arg DOCKER_TAG=${DOCKER_TAG} \
-             -t $IMAGE_NAME .
+             --build-arg DOCKER_TAG=${VCS_REF} \
+             -t $DOCKER_REPO:${VCS_REF} .
+
+echo "Tag latest"
+docker tag $DOCKER_REPO:${VCS_REF} $DOCKER_REPO:latest
+
+echo "Build debug tag"
+docker build --build-arg BUILD_DATE=${BUILD_DATE} \
+             --build-arg VCS_REF=${VCS_REF} \
+             --build-arg DOCKER_REPO=${DOCKER_REPO} \
+             --build-arg DOCKER_TAG=debug \
+             -f debug.Dockerfile \
+             -t $DOCKER_REPO:debug .
