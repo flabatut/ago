@@ -26,9 +26,21 @@ function dockerfilelint() {
 	fi
 }
 
+function generate_dockerfiles() {
+	ansible-playbook site.yml -D
+	if (($?)); then
+		echo "ERROR: generate_dockerfiles with ansible. Aborting commit"
+		exit 1
+	fi
+}
+
+### Main
+echo "Starting pre-commit build sequence..."
+generate_dockerfiles
 
 echo "Starting pre-commit validation sequence..."
 for dockerfile in *Dockerfile; do
+	
 	hadolint ${dockerfile}
 	dockerfilelint ${dockerfile}
 done

@@ -1,0 +1,13 @@
+---
+- name: generate file
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ mode }}"
+    owner: "{{ user_id }}"
+    group: "{{ group_id }}"
+  register: r
+
+- name: add to stage when changed
+  command: "git add {{ item.dest }}"
+  when: r is changed

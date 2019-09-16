@@ -1,0 +1,4 @@
+---
+- name: generate files from templates
+  include_tasks: loop_template.yml
+  loop: "{{ templates }}"

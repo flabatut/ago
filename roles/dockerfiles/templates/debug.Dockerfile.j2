@@ -5,15 +5,15 @@ ARG		DOCKER_TAG=latest
 FROM	flabatut/ago:${VCS_REF}
 COPY	requirements.pip.debug.txt .
 RUN		apk --no-cache add \
-			bash==5.0.0-r0 \
-			python3-dev=3.7.3-r0 \
-			busybox-extras==1.30.1-r2 \
-			vim==8.1.1365-r0 \
-			make==4.2.1-r2 \
-			gcc==8.3.0-r0 \
-			musl-dev==1.1.22-r3 \
-			libffi-dev==3.2.1-r6 \
-			openssl-dev==1.1.1d-r0 \
+			bash=={{ versions.apk.bash }} \
+			python3-dev={{ versions.apk.python3_dev }} \
+			busybox-extras=={{ versions.apk.busybox_extras }} \
+			vim=={{ versions.apk.vim }} \
+			make=={{ versions.apk.make }} \
+			gcc=={{ versions.apk.gcc }} \
+			musl-dev=={{ versions.apk.musl_dev }} \
+			libffi-dev=={{ versions.apk.libffi_dev }} \
+			openssl-dev=={{ versions.apk.openssl_dev }} \
 		&& pip3 install -r requirements.pip.debug.txt
 LABEL	name=${DOCKER_REPO} \
 		version=${DOCKER_TAG} \

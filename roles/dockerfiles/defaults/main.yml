@@ -1,0 +1,9 @@
+---
+templates:
+  - { src: debug.Dockerfile.j2 , dest: debug.Dockerfile }
+  - { src: Dockerfile.j2 , dest: Dockerfile }
+  - { src: requirements.pip.debug.txt.j2 , dest: requirements.pip.debug.txt }
+  - { src: requirements.pip.txt.j2 , dest: requirements.pip.txt }
+user_id: "{{ lookup('pipe', 'id -u') }}"
+group_id: "{{ lookup('pipe', 'id -g') }}"
+mode: 0640
