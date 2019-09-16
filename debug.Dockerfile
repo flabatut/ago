@@ -1,9 +1,11 @@
+ARG		BUILD_DATE
 ARG		DOCKER_REPO
 ARG		VCS_REF
 ARG		DOCKER_TAG=latest
 FROM	flabatut/ago:${VCS_REF}
 COPY	requirements.pip.debug.txt .
 RUN		apk --no-cache add bash==5.0.0-r0 \
+			python3-dev=3.7.3-r0 \
 			busybox-extras==1.30.1-r2 \
 			vim==8.1.1365-r0 \
 			make==4.2.1-r2 \
