@@ -1,0 +1,16 @@
+#!/bin/sh
+
+# Specify the directory for the hooks.
+# We'll use the current one (.githooks)
+hookDir="$(dirname $0)/../"
+
+# Specify the hooks you want to run during
+# the pre-commit process:
+# "$hookDir/areYouSure.sh"
+echo "Starting pre-commit validation sequence..."
+for i in *Dockerfile; do
+	echo "Executing hadolint against $i ..."
+	docker run --rm -i hadolint/hadolint < $i
+	echo "Executing dockerfile-lint against $i ..."
+	docker run -it --rm --privileged -v $PWD:/root/ projectatomic/dockerfile-lint dockerfile_lint -f $i
+done
