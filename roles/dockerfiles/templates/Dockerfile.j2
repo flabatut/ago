@@ -9,6 +9,7 @@ RUN		apk --no-cache add \
 			git=={{ versions.apk.git }} \
 			openssh-client=={{ versions.apk.openssh_client }} \
 			rsync=={{ versions.apk.rsync }} \
+			bash=={{ versions.apk.bash }} \
 		&& pip3 install pip=={{ versions.pip.pip }} --upgrade \
 		&& pip3 install wheel=={{ versions.pip.wheel }} \
 		&& ln -s /usr/bin/python3 /usr/bin/python \
@@ -23,6 +24,7 @@ RUN		apk --no-cache add \
 			musl-dev=={{ versions.apk.musl_dev }} \
 			libffi-dev=={{ versions.apk.libffi_dev }} \
 			openssl-dev=={{ versions.apk.openssl_dev }} \
+			make=={{ versions.apk.make }} \
 		&& pip3 wheel -r requirements.pip.txt
 
 FROM	base_image AS third_party

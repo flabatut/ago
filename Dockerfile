@@ -9,6 +9,7 @@ RUN		apk --no-cache add \
 			git==2.22.0-r0 \
 			openssh-client==8.0_p1-r0 \
 			rsync==3.1.3-r1 \
+			bash==5.0.0-r0 \
 		&& pip3 install pip==19.2.3 --upgrade \
 		&& pip3 install wheel==0.33.6 \
 		&& ln -s /usr/bin/python3 /usr/bin/python \
@@ -23,6 +24,7 @@ RUN		apk --no-cache add \
 			musl-dev==1.1.22-r3 \
 			libffi-dev==3.2.1-r6 \
 			openssl-dev==1.1.1d-r0 \
+			make==4.2.1-r2 \
 		&& pip3 wheel -r requirements.pip.txt
 
 FROM	base_image AS third_party
