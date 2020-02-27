@@ -3,11 +3,11 @@
 
 FROM	alpine:3.10 AS base_image
 RUN		apk --no-cache add \
-			python3==3.7.4-r0 \
+			python3==3.7.5-r1 \
 			curl==7.66.0-r0 \
 			ca-certificates==20190108-r0 \
-			git==2.22.0-r0 \
-			openssh-client==8.0_p1-r0 \
+			git==2.22.2-r0 \
+			openssh-client==8.1_p1-r0 \
 			rsync==3.1.3-r1 \
 			bash==5.0.0-r0 \
 		&& pip3 install pip==19.2.3 --upgrade \
@@ -19,7 +19,7 @@ FROM	base_image AS pip_packages
 WORKDIR	/build
 COPY	requirements.pip.txt .
 RUN		apk --no-cache add \
-			python3-dev==3.7.4-r0 \
+			python3-dev==3.7.5-r1 \
 			gcc==8.3.0-r0 \
 			musl-dev==1.1.22-r3 \
 			libffi-dev==3.2.1-r6 \
