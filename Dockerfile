@@ -23,7 +23,7 @@ RUN		apk --no-cache add \
 			gcc==8.3.0-r0 \
 			musl-dev==1.1.22-r3 \
 			libffi-dev==3.2.1-r6 \
-			openssl-dev==1.1.1d-r0 \
+			openssl-dev==1.1.1d-r2 \
 			make==4.2.1-r2 \
 		&& pip3 wheel -r requirements.pip.txt
 
