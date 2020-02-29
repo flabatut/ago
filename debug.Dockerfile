@@ -10,7 +10,7 @@ COPY	requirements.pip.debug.txt .
 RUN		apk --no-cache add \
 			bash==5.0.0-r0 \
 			python3-dev=3.7.5-r1 \
-			busybox-extras==1.30.1-r2 \
+			busybox-extras==1.30.1-r3 \
 			vim==8.1.1365-r0 \
 			make==4.2.1-r2 \
 			gcc==8.3.0-r0 \
